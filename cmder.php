@@ -15,7 +15,13 @@ while(1){
    }
 
    $arr_179633571=[];
-   exec("php -r '".$cmd."'",$arr_179633571);
+   $os = strtolower( php_uname('s') );
+   if($os=='windows nt'){
+      exec('php -r "'.$cmd.'"',$arr_179633571);
+   }else{
+      exec("php -r '$cmd'",$arr_179633571);
+   }
+
    if(count($arr_179633571)==1){
       echo $arr_179633571[0]."\n";
    }else{
