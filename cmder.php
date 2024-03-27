@@ -39,5 +39,4 @@ function help(){
    echo "可以直接输入php代码回车来执行\n";
    echo "联系作者: admin@liyiru.top\n";
    echo "\n\e[0m";
-   echo '>>> ';
 }
