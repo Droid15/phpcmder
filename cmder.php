@@ -1,16 +1,31 @@
 <?php
 
-fflush(STDIN);
+//fflush(STDIN);
 echo "\n\e[33m ############ 欢迎来到phpcmder v0.1! 需要帮助请输入help ###########\n\n";
 echo "\e[0m";
+$cmd='';
 while(1){
     if (!function_exists("readline")) {
         echo "\e[33m Readline extension not available.\n";
         break;
     }
 
-    readline_completion_function(function ($cmd) {
-        return [];
+    //tab activity
+    readline_completion_function(function ($get_cmd) use (&$cmd){
+        if($get_cmd==''){
+          return false;
+        }
+        $func = get_defined_functions() ?? [];
+        $arr = [];
+        foreach($func['internal'] as $func_name){
+          if($res = strstr($func_name, $get_cmd)){
+                $arr[] = $res;
+             }
+        }
+        if($arr && count($arr)<12){
+            echo "\n\n".implode("\t", $arr),"\n\n";
+            $cmd = readline(">>> ");
+        }
     });
 
     $cmd = readline(">>> ");
@@ -25,12 +40,23 @@ while(1){
 
     $arr_179633571=[];
     $os = strtolower( php_uname('s') );
+
+    if(is_numeric($cmd)){
+      echo $cmd."\n";
+      continue;
+    }
+    
+    if(mb_substr($cmd, -1)!=';'){
+      $cmd .= ';';
+    }
     if($os=='windows nt'){
         exec('php -r "'.$cmd.'"',$arr_179633571);
     }else{
+        str_replace("'", "\'", $cmd);
         exec("php -r '$cmd'",$arr_179633571);
     }
-    var_dump($arr_179633571);
+    readline_add_history($cmd);
+    echo implode("\n",$arr_179633571)."\n";
 }
 
 function help(){
