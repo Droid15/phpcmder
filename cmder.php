@@ -1,6 +1,6 @@
 <?php
 
-//fflush(STDIN);
+$dis_func = ini_get('disable_functions');
 echo "\n\e[33m ############ 欢迎来到phpcmder v0.1! 需要帮助请输入help ###########\n\n";
 echo "\e[0m";
 $cmd='';
@@ -19,7 +19,7 @@ while(1){
         $arr = [];
         foreach($func['internal'] as $func_name){
           if($res = strstr($func_name, $get_cmd)){
-                $arr[] = $res;
+                $arr[] = $res;                
              }
         }
         if($arr && count($arr)<12){
@@ -49,6 +49,14 @@ while(1){
     if(mb_substr($cmd, -1)!=';'){
       $cmd .= ';';
     }
+
+    if(strpos($dis_func, 'eval') == false){
+      $res = eval($cmd);
+      readline_add_history($cmd);
+      echo "\n";  
+      continue;
+    }
+    
     if($os=='windows nt'){
         exec('php -r "'.$cmd.'"',$arr_179633571);
     }else{
