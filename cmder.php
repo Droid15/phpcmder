@@ -51,7 +51,7 @@ while(1){
         $cmd = "var_dump($cmd);";
     }
 
-    if(mb_substr($cmd, -1)!=';'){
+    if(substr($cmd, -1)!=';'){
       $cmd .= ';';
     }
 
