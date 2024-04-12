@@ -31,6 +31,9 @@ while(1){
 
     $cmd = readline(">>> ");
     $cmd = trim($cmd);
+    if($cmd===""){
+        continue;
+    }
     if($cmd=='exit'||$cmd=='exit()'){
        echo "bye!\n";
        break;
