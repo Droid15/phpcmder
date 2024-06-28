@@ -5,3 +5,6 @@ A small PHP command line tool. Although it's just a toy
 First ensure that there is a PHP environment, PHP -V has a response, and directly execute php cmder.php
 首先确保有php环境，php -v有反应，直接执行php cmder.php就可以
 
+# It's useless 没啥用
+Obviously execute "PHP -A" directly More useful 显然直接执行php -a更好用
+
